@@ -1,0 +1,66 @@
+
+server:
+  port: 9518
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.18.84.32:8761/eureka/
+
+spring:
+  application:
+    name: my-goods-service
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/goods?useUnicode=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  devtools:
+    restart:
+      enabled: true
+
+  redis:
+    database: 1
+    password:
+    port: 6379
+  cache:
+    type: redis
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zpark.goods.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+#call other service
+#product-service-2:
+#ribbon:
+#  ConnectTimeout: 1000
+#  ReadTimeout: 2000
+#  okToRetryOnAllOperations: true
+#
+#  MaxAutoRetries: 1
+#  MaxAutoRetriesNextServer: 2
+#  http:
+#    client:
+#      enabled: true
+
+
+
+
+feign:
+  hystrix:
+    enabled: true
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 500
+#  feign整合ribbon  feign里面也有一个超时设置啥
+#要想测试hystrix的超时时间 需要设置 ribbon的超时间大于 hystrix的超时时间

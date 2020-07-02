@@ -1,0 +1,19 @@
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: 172.18.84.32
+#    instance-id: server-8761
+  ##   settting ip for accessing services
+##    instance-id: server-1
+##  prefer-ip-address: false
+
+  client:
+    service-url:
+      defaultZone: http://172.18.84.32:8761/eureka/
+    fetch-registry: false
+    register-with-eureka: false
+
+spring:
+  application:
+    name: eureka-server

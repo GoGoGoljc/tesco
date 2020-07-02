@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zpark.stock.mapper.StockMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zpark.stock.domain.Stock" >
+    <id column="stock_id" property="stockId" jdbcType="INTEGER" />
+    <result column="stock_num" property="stockNum" jdbcType="INTEGER" />
+    <result column="has_stock" property="hasStock" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="stock_price" property="stockPrice" jdbcType="DOUBLE" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    stock_id, stock_num, has_stock, goods_id, stock_price
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="findStockByGoodsId" parameterType="java.lang.Integer" resultType="com.zpark.stock.domain.Stock">
+     select * from stock where goods_id=#{goodsId}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stock
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zpark.stock.domain.Stock" >
+    insert into stock (stock_id, stock_num, has_stock, 
+      goods_id, stock_price)
+    values (#{stockId,jdbcType=INTEGER}, #{stockNum,jdbcType=INTEGER}, #{hasStock,jdbcType=INTEGER},
+      #{goodsId,jdbcType=INTEGER}, #{stockPrice,jdbcType=DOUBLE})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zpark.stock.domain.Stock" >
+    insert into stock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        stock_id,
+      </if>
+      <if test="stockNum != null" >
+        stock_num,
+      </if>
+      <if test="hasStock != null" >
+        has_stock,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="stockPrice != null" >
+        stock_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stockId != null" >
+        #{stockId,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="hasStock != null" >
+        #{hasStock,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="stockPrice != null" >
+        #{stockPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zpark.stock.domain.Stock" >
+    update stock
+    <set >
+      <if test="stockNum != null" >
+         stock_num = #{stockNum,jdbcType=INTEGER},
+      </if>
+        <if test="hasStock != null" >
+        has_stock = #{hasStock,jdbcType=INTEGER},
+       </if>
+       <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+         <if test="stockPrice != null" >
+        stock_price = #{stockPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.zpark.stock.domain.Stock" >
+    update stock
+    set stock_num = #{stockNum,jdbcType=INTEGER},
+      has_stock = #{hasStock,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      stock_price = #{stockPrice,jdbcType=DOUBLE}
+    where stock_id = #{stockId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStockByGoodsId" parameterType="com.zpark.stock.domain.Stock">
+     update stock
+       <set >
+         <if test="stockId != null" >
+           stock_id = #{stockId,jdbcType=INTEGER},
+         </if>
+         <if test="stockNum != null" >
+        stock_num = #{stockNum,jdbcType=INTEGER},
+         </if>
+         <if test="hasStock != null" >
+        has_stock = #{hasStock,jdbcType=INTEGER},
+         </if>
+
+           <if test="stockPrice != null" >
+          stock_price = #{stockPrice,jdbcType=DOUBLE},
+       </if>
+    </set>
+    where goods_id=#{goodsId,jdbcType=INTEGER}
+  </update>
+</mapper>

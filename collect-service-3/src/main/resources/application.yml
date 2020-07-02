@@ -1,0 +1,70 @@
+#  9541-9560
+server:
+  port: 9541
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: my-collect-service
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/goods?useUnicode=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  devtools:
+    restart:
+      enabled: true
+  redis:
+    database: 0
+    password:
+    port: 6379
+  cache:
+    type: redis
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zpark.collect.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
+#call other service
+my-goods-service:
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 5000
+  okToRetryOnAllOperations: true
+
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  http:
+    client:
+      enabled: true
+
+
+
+feign:
+  hystrix:
+    enabled: true
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+            # setting time out
+
+
+

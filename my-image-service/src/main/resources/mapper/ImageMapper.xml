@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zpark.image.mapper.ImageMapper" >
+
+    <insert id="addImage" parameterType="com.zpark.image.domain.Image">
+        insert into image
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="imageId != null" >
+                image_id,
+            </if>
+            <if test="imageAddress != null" >
+                image_address,
+            </if>
+            <if test="goodsId != null" >
+                goods_id,
+            </if>
+            <if test="imageName != null" >
+                image_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="imageId != null" >
+                #{imageId,jdbcType=INTEGER},
+            </if>
+            <if test="imageAddress != null" >
+                #{imageAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsId != null" >
+                #{goodsId,jdbcType=INTEGER},
+            </if>
+            <if test="imageName != null" >
+                #{imageName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+<!--    <delete id="deleteByGoodsId">-->
+<!--        delete from image where goods_id=#{goodsId}-->
+<!--    </delete>-->
+</mapper>

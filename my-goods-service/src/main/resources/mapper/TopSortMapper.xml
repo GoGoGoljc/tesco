@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zpark.goods.mapper.TopSortMapper" >
+  <resultMap id="BaseResultMap" type="com.zpark.goods.domain.TopSort" >
+    <id column="top_sort_id" property="topSortId" jdbcType="INTEGER" />
+    <result column="top_sort_name" property="topSortName" jdbcType="VARCHAR" />
+    <result column="top_sort_num" property="topSortNum" jdbcType="INTEGER" />
+    <result column="top_sort_remark" property="topSortRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    top_sort_id, top_sort_name, top_sort_num, top_sort_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from top_sort
+    where top_sort_id = #{topSortId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from top_sort
+    where top_sort_id = #{topSortId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zpark.goods.domain.TopSort" >
+    insert into top_sort (top_sort_id, top_sort_name, top_sort_num, 
+      top_sort_remark)
+    values (#{topSortId,jdbcType=INTEGER}, #{topSortName,jdbcType=VARCHAR}, #{topSortNum,jdbcType=INTEGER}, 
+      #{topSortRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zpark.goods.domain.TopSort" >
+    insert into top_sort
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="topSortId != null" >
+        top_sort_id,
+      </if>
+      <if test="topSortName != null" >
+        top_sort_name,
+      </if>
+      <if test="topSortNum != null" >
+        top_sort_num,
+      </if>
+      <if test="topSortRemark != null" >
+        top_sort_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="topSortId != null" >
+        #{topSortId,jdbcType=INTEGER},
+      </if>
+      <if test="topSortName != null" >
+        #{topSortName,jdbcType=VARCHAR},
+      </if>
+      <if test="topSortNum != null" >
+        #{topSortNum,jdbcType=INTEGER},
+      </if>
+      <if test="topSortRemark != null" >
+        #{topSortRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zpark.goods.domain.TopSort" >
+    update top_sort
+    <set >
+      <if test="topSortName != null" >
+        top_sort_name = #{topSortName,jdbcType=VARCHAR},
+      </if>
+      <if test="topSortNum != null" >
+        top_sort_num = #{topSortNum,jdbcType=INTEGER},
+      </if>
+      <if test="topSortRemark != null" >
+        top_sort_remark = #{topSortRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where top_sort_id = #{topSortId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zpark.goods.domain.TopSort" >
+    update top_sort
+    set top_sort_name = #{topSortName,jdbcType=VARCHAR},
+      top_sort_num = #{topSortNum,jdbcType=INTEGER},
+      top_sort_remark = #{topSortRemark,jdbcType=VARCHAR}
+    where top_sort_id = #{topSortId,jdbcType=INTEGER}
+  </update>
+</mapper>

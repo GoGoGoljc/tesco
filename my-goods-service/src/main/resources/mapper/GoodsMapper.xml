@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zpark.goods.mapper.GoodsMapper">
+
+    <sql id="Base_Column_List" >
+    goods_id, goods_name, goods_price, goods_discount, goods_num, goods_brief, goods_info,
+    goods_add_time, admin_id, if_new, if_add, second_sort_id, if_hot, sale,goods_image
+  </sql>
+
+
+    <insert id="insert" parameterType="com.zpark.goods.domain.Goods" >
+        insert into goods(goods_name, goods_price, goods_discount, goods_num, goods_brief, goods_info,
+    goods_add_time, admin_id, if_new, if_add, second_sort_id, if_hot, sale,goods_image)
+    values (#{goodsName,jdbcType=VARCHAR}, #{goodsPrice,jdbcType=DOUBLE},
+      #{goodsDiscount,jdbcType=DOUBLE}, #{goodsNum,jdbcType=INTEGER}, #{goodsBrief,jdbcType=VARCHAR},
+      #{goodsInfo,jdbcType=VARCHAR}, #{goodsAddTime,jdbcType=TIMESTAMP}, #{adminId,jdbcType=INTEGER},
+      #{ifNew,jdbcType=INTEGER}, #{ifAdd,jdbcType=INTEGER}, #{secondSortId,jdbcType=INTEGER},
+      #{ifHot,jdbcType=INTEGER}, #{sale,jdbcType=INTEGER},#{goodsImage,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.zpark.goods.domain.Goods" useGeneratedKeys="true" keyColumn="goods_id" keyProperty="goodsId">
+       insert into goods
+       <trim prefix="(" suffix=")" suffixOverrides=",">
+           <if test="goodsId != null" >
+               goods_id,
+           </if>
+           <if test="goodsName != null" >
+               goods_name,
+           </if>
+           <if test="goodsPrice != null" >
+               goods_price,
+           </if>
+           <if test="goodsDiscount != null" >
+               goods_discount,
+           </if>
+           <if test="goodsNum != null" >
+               goods_num,
+           </if>
+           <if test="goodsBrief != null" >
+               goods_brief,
+           </if>
+           <if test="goodsInfo != null" >
+               goods_info,
+           </if>
+           <if test="goodsAddTime != null" >
+               goods_add_time,
+           </if>
+           <if test="adminId != null" >
+               admin_id,
+           </if>
+           <if test="ifNew != null" >
+               if_new,
+           </if>
+           <if test="ifAdd != null" >
+               if_add,
+           </if>
+           <if test="secondSortId != null" >
+               second_sort_id,
+           </if>
+           <if test="ifHot != null" >
+               if_hot,
+           </if>
+           <if test="sale != null" >
+               sale,
+           </if>
+           <if test="goodsImage !=null">
+               goods_image,
+           </if>
+       </trim>
+       <trim prefix="values(" suffix=")" suffixOverrides=",">
+           <if test="goodsId != null" >
+               #{goodsId,jdbcType=INTEGER},
+           </if>
+           <if test="goodsName != null" >
+               #{goodsName,jdbcType=VARCHAR},
+           </if>
+           <if test="goodsPrice != null" >
+               #{goodsPrice,jdbcType=DOUBLE},
+           </if>
+           <if test="goodsDiscount != null" >
+               #{goodsDiscount,jdbcType=DOUBLE},
+           </if>
+           <if test="goodsNum != null" >
+               #{goodsNum,jdbcType=INTEGER},
+           </if>
+           <if test="goodsBrief != null" >
+               #{goodsBrief,jdbcType=VARCHAR},
+           </if>
+           <if test="goodsInfo != null" >
+               #{goodsInfo,jdbcType=VARCHAR},
+           </if>
+           <if test="goodsAddTime != null" >
+               #{goodsAddTime,jdbcType=TIMESTAMP},
+           </if>
+           <if test="adminId != null" >
+               #{adminId,jdbcType=INTEGER},
+           </if>
+           <if test="ifNew != null" >
+               #{ifNew,jdbcType=INTEGER},
+           </if>
+           <if test="ifAdd != null" >
+               #{ifAdd,jdbcType=INTEGER},
+           </if>
+
+           <if test="secondSortId != null" >
+               #{secondSortId,jdbcType=INTEGER},
+           </if>
+           <if test="ifHot != null" >
+               #{ifHot,jdbcType=INTEGER},
+           </if>
+           <if test="sale != null" >
+               #{sale,jdbcType=INTEGER},
+           </if>
+           <if test="goodsImage !=null">
+               #{goodsImage,jdbcType=VARCHAR}
+           </if>
+
+       </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zpark.goods.domain.Goods">
+        update goods
+        <set >
+            <if test="goodsName != null" >
+                goods_name = #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsPrice != null" >
+                goods_price = #{goodsPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="goodsDiscount != null" >
+                goods_discount = #{goodsDiscount,jdbcType=DOUBLE},
+            </if>
+
+            <if test="goodsNum !=null">
+                goods_num=#{goodsNum,jdbcType=INTEGER},
+            </if>
+            <if test="goodsBrief !=null">
+                goods_brief=#{goodsBrief,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsInfo !=null">
+                goods_info=#{goodsInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsAddTime!=null">
+                goods_add_time=#{goodsAddTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="adminId!=null">
+                admin_id=#{adminId,jdbcType=INTEGER},
+            </if>
+            <if test="ifNew !=null">
+                if_new=#{ifNew,jdbcType=INTEGER},
+            </if>
+
+            <if test="ifAdd!=null">
+                if_add=#{ifAdd,jdbcType=INTEGER},
+            </if>
+            <if test="secondSortId!=null">
+                second_sort_id=#{secondSortId,jdbcType=INTEGER},
+            </if>
+            <if test="ifHot!=null">
+                if_hot=#{ifHot,jdbcType=INTEGER},
+            </if>
+            <if test="sale!=null">
+                sale=#{sale,jdbcType=INTEGER},
+            </if>
+            <if test="goodsImage !=null">
+                goods_image=#{goodsImage,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where goods_id = #{goodsId,jdbcType=INTEGER}
+    </update>
+
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from goods where goods_id =#{goodsId}
+    </delete>
+
+    <select id="findAllGoods" parameterType="java.lang.Integer" resultType="com.zpark.goods.domain.Goods">
+      select * from goods order by goods_add_time desc
+    </select>
+
+    <select id="findNewGoods" resultType="com.zpark.goods.domain.Goods">
+        select * from goods where if_new=1  order  by goods_add_time limit  9
+    </select>
+
+
+    <select id="findHotGoods" resultType="com.zpark.goods.domain.Goods">
+         select * from goods where if_hot=1  order  by goods_add_time limit  8
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.zpark.goods.domain.Goods">
+        select  *  from goods where goods_id=#{goodsId}
+    </select>
+
+    <select id="findRecordCount" resultType="java.lang.Integer">
+        select count(*) from goods
+    </select>
+
+    <select id="findBySpecifiedPage" resultType="com.zpark.goods.domain.Goods">
+        select * from goods order by goods_add_time desc limit #{pageNum},100
+    </select>
+
+    <select id="searchGoods" resultType="com.zpark.goods.domain.Goods">
+        select
+        <include refid="Base_Column_List"></include>
+        from goods
+        <where>
+            <if test="goodsName!=null and goodsName!=''">
+                goods_name like concat('%',#{goodsName},'%')
+            </if>
+            <if test="goodsBrief!=null and goodsBrief!=''">
+                or goods_brief like concat('%',#{goodsBrief},'%')
+            </if>
+            <if test="goodsInfo!=null and goodsInfo!=''">
+                or goods_info like concat('%',#{goodsInfo},'%')
+            </if>
+
+        </where>
+    </select>
+
+    <select id="findGoodsBySecondSortId" resultType="com.zpark.goods.domain.Goods">
+        select <include refid="Base_Column_List"></include>
+        from goods
+        where second_sort_id=#{secondSortId}
+    </select>
+
+
+    <select id="findMaxGoodsId" resultType="java.lang.Integer">
+        select max(goods_id) from goods
+    </select>
+
+
+    <select id="findTopGoodsBySale" resultType="com.zpark.goods.domain.Goods">
+    select * from goods order by sale desc limit  8
+    </select>
+
+    <select id="findBargain" resultType="com.zpark.goods.domain.Goods">
+        select * from goods where if_add=1 order by goods_discount asc ,goods_add_time desc limit 9
+    </select>
+    <select id="findUsersByPage" resultType="com.zpark.goods.domain.Goods">
+        select  * from goods order by goods_add_time desc
+    </select>
+
+
+    <select id="selectTopGoods" resultType="com.zpark.goods.domain.Goods">
+        select * from  goods order by sale desc,goods_discount asc limit 9
+    </select>
+
+
+    <select id="selectTopGoods2" resultType="com.zpark.goods.domain.Goods">
+        select goods_name,sale from goods order by sale desc limit 10
+    </select>
+
+
+</mapper>

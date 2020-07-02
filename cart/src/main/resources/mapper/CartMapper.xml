@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.legou.cart.mapper.CartMapper">
+    <resultMap id="BaseResultMap" type="com.legou.cart.domain.Cart">
+        <result column="good_id" property="goodId" jdbcType="INTEGER"/>
+        <result column="good_name" property="goodName" jdbcType="VARCHAR"/>
+        <result column="good_price" property="goodPrice" jdbcType="DOUBLE"/>
+        <result column="good_num" property="goodNum" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 根据用户id查询购物车-->
+    <select id="selectByUserId" resultType="com.legou.cart.domain.Cart">
+        select * from cart where user_id = #{userId}
+    </select>
+
+
+    <!-- 根据主键删除购物项-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from cart
+        where good_id = #{goodId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 判断商品是否已存在-->
+    <select id="goodIdExist" parameterType="java.lang.Integer" resultType="com.legou.cart.domain.Cart">
+        select * from cart where user_id = #{userId,jdbcType=INTEGER} and good_id = #{goodId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPages" resultType="com.legou.cart.domain.Cart"></select>
+
+    <!-- 支付成功后清空购物车-->
+    <delete id="deleteByUserId" parameterType="java.lang.Integer">
+        delete from cart
+        where user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 添加商品到购物车-->
+    <insert id="insert">
+        insert into cart (
+        good_name, good_id,good_price,
+        good_discount, good_num,good_image,good_total)
+        values (
+        #{goodName,jdbcType=VARCHAR},#{goodId,jdbcType=INTEGER},
+        #{goodPrice,jdbcType=DOUBLE},
+        #{goodDiscount,jdbcType=DOUBLE},#{goodNum,jdbcType=INTEGER},#{goodImage,jdbcType=VARCHAR},#{goodTotal,jdbcType=DOUBLE}) where user_id =#{userId,jdbcType=INTEGER}
+    </insert>
+
+    <insert id="add" >
+        insert into cart (
+        user_id,good_name, good_id,good_price,
+        good_discount, good_num,good_image,good_total)
+        values (
+        #{userId,jdbcType=INTEGER},#{goodName,jdbcType=VARCHAR},#{goodId,jdbcType=INTEGER},
+        #{goodPrice,jdbcType=DOUBLE},
+        #{goodDiscount,jdbcType=DOUBLE},#{goodNum,jdbcType=INTEGER},#{goodImage,jdbcType=VARCHAR},#{goodTotal,jdbcType=DOUBLE})
+    </insert>
+
+
+    <!--更新商品数量加一-->
+    <update id="updateNum">
+        update cart
+        set good_num=good_num+1 where good_id = #{goodId,jdbcType=INTEGER}
+
+    </update>
+</mapper>

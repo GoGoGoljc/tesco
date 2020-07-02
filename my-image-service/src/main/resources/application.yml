@@ -1,0 +1,68 @@
+#9501-9520
+server:
+  port: 9514
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.18.84.32:8761/eureka/
+
+spring:
+  application:
+    name: my-image-service
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/image?useUnicode=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  devtools:
+    restart:
+      enabled: true
+
+  redis:
+    database: 0
+    password:
+    port: 6379
+  cache:
+    type: redis
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zpark.image.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#call other service
+#my-stock-service:
+#  ribbon:
+#    ConnectTimeout: 100
+#    ReadTimeout: 200
+#    OkToRetryOnAllOperations: true
+#    MaxAutoRetries: 1
+#    MaxAutoRetriesNextServer: 2
+#    http:
+#      client:
+#        enabled: true
+#
+
+
+
+feign:
+  hystrix:
+    enabled: true
+
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+#  feign����ribbon  feign����Ҳ��һ����ʱ����ɶ
+#Ҫ�����hystrix�ĳ�ʱʱ�� ��Ҫ���� ribbon�ĳ�ʱ����� hystrix�ĳ�ʱʱ��
+

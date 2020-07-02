@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkdj.userservice.mapper.UserMapper">
+  <insert id="userRegister" parameterType="com.zkdj.userservice.domain.Users">
+
+        insert into users(user_name,user_realname,user_pwd,user_sex,user_email,user_phone,user_image,user_state,
+        user_time,user_address)
+        values (#{userName},#{userRealName},#{userPwd},#{userSex},#{userEmail},#{userPhone},#{userImage},
+        #{userState},#{userTime},#{userAddress})
+    </insert>
+
+    <insert id="insertSelective"  parameterType="com.zkdj.userservice.domain.Users">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName!=null">
+                user_name,
+            </if>
+            <if test="userRealName!=null">
+                user_realname,
+            </if>
+            <if test="userPwd!=null">
+              user_pwd,
+            </if>
+            <if test="userSex!=null">
+                user_sex,
+            </if>
+            <if test="userEmail!=null">
+                user_email,
+            </if>
+            <if test="userPhone!=null">
+                user_phone,
+            </if>
+            <if test="userImage!=null">
+                user_image,
+            </if>
+            <if test="userState!=null">
+                user_state ,
+            </if>
+            <if test="userTime!=null">
+                user_time,
+            </if>
+            <if test="userAddress!=null">
+                user_address,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="userName!=null">
+            #{userName,jdbcType=VARCHAR},
+        </if>
+        <if test="userRealName!=null">
+            #{userRealName,jdbcType=VARCHAR},
+        </if>
+            <if test="userPwd!=null">
+                #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex!=null">
+                #{userSex,jdbcType=INTEGER},
+            </if>
+            <if test="userEmail!=null">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userPhone!=null">
+                #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userImage!=null">
+                #{userImage,jdbcType=VARCHAR},
+            </if>
+            <if test="userState!=null">
+                #{userState,jdbcType=INTEGER},
+            </if>
+            <if test="userTime!=null">
+                #{userTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userAddress">
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+ <!--  <update id="updateUser" parameterType="com.zkdj.userservice.domain.Users">
+        update users
+        set user_name = #{userName},
+        user_realname = #{userRealName},
+        user_pwd = #{userPwd},
+        user_sex = #{userSex},
+        user_email = #{userEmail},
+        user_phone = #{userPhone},
+        user_image = #{userImage},
+        user_state = #{userState},
+        user_time = #{userTime},
+        user_address = #{userAddress}
+        where user_id = #{userId}
+    </update>
+  -->
+
+    <update id="updateUserMessage" parameterType="com.zkdj.userservice.domain.Users" >
+        update users
+        <set >
+            <if test="userName != null" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRealName != null" >
+                user_realname = #{userRealName,jdbcType=VARCHAR},
+            </if>
+            <if test="userPwd != null" >
+                user_pwd = #{userPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null" >
+                user_email = #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userSex != null" >
+                user_sex = #{userSex,jdbcType=INTEGER},
+            </if>
+            <if test="userPhone != null" >
+                user_phone = #{userPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="userImage != null" >
+                user_image = #{userImage,jdbcType=VARCHAR},
+            </if>
+
+            <if test="userState != null" >
+                user_state = #{userState,jdbcType=INTEGER},
+            </if>
+            <if test="userTime != null" >
+                user_time = #{userTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userImage != null" >
+                user_image = #{userImage,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null" >
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updatePasswordByEmail">
+        update users set user_pwd=#{userPwd} where user_email=#{userEmail} and user_id=#{userId}
+    </update>
+    <update id="updatePwdByEmail">
+           update users set user_pwd=#{param2} where user_email=#{param1}
+    </update>
+
+
+    <delete id="deleteUserById">
+    delete from users where user_id=#{userId}
+    </delete>
+
+
+    <select id="userLogin" resultType="com.zkdj.userservice.domain.Users" parameterType="com.zkdj.userservice.domain.Users">
+        select * from users where user_name=#{userName} and user_pwd=#{userPwd}
+    </select>
+    
+    <select id="userNameExist" resultType="com.zkdj.userservice.domain.Users">
+        select * from users where user_name=#{userName};
+    </select>
+
+    <select id="selectUserMessage"  parameterType="java.lang.Integer" resultType="com.zkdj.userservice.domain.Users">
+        select * from users where user_id=#{userId};
+    </select>
+
+
+  <select id="findUserByCondition" resultType="com.zkdj.userservice.domain.Users">
+     select * from users
+     <where>
+         <if test="userName!=null">
+             user_name like concat('%',#{userName},'%')
+         </if>
+         <if test="userPhone!=null">
+            and  user_phone=#{userPhone}
+         </if>
+     </where>
+    </select>
+    <select id="findUsersByPage" resultType="com.zkdj.userservice.domain.Users">
+        select * from users
+    </select>
+
+
+    <select id="findAll" resultType="com.zkdj.userservice.domain.Users">
+        select * from users
+    </select>
+    <!-- <select id="findUserByCondition" resultType="com.zkdj.userservice.domain.Users">
+         select * from users where user_name like concat('%',#{userName},'%') or user_phone=#{userPhone}
+     </select>-->
+</mapper>

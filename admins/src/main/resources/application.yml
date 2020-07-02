@@ -1,0 +1,72 @@
+
+server:
+  port: 9581
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.18.84.32:8761/eureka/
+
+spring:
+  application:
+    name: admin-service
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mydb?useUnicode=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  devtools:
+    restart:
+      enabled: true
+
+  redis:
+    database: 0
+    password:
+    port: 6379
+    host: 172.18.84.32
+
+  mail:
+    host: smtp.163.com
+    username: mgr15878571440@163.com
+    password: PZDASTDSYISJFIQC
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zpark.eureka.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+# #my service
+# every service should set a retry mechanism ?
+# how to set retry for multiple services  ?
+
+
+#product-service-2:
+
+order-service-2:
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 1000
+  okToRetryOnAllOperations: true
+  # loadbalances strategy
+  #  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+  MaxAutoRetries: 1
+  MaxAutoRetriesNextServer: 2
+  http:
+    client:
+      enabled: true
+
+
+feign:
+  hystrix:
+    enabled: true
+
+
+

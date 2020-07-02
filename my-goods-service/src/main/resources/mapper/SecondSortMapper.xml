@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zpark.goods.mapper.SecondSortMapper" >
+  <resultMap id="BaseResultMap" type="com.zpark.goods.domain.SecondSort" >
+    <id column="second_sort_id" property="secondSortId" jdbcType="INTEGER" />
+    <result column="second_sort_name" property="secondSortName" jdbcType="VARCHAR" />
+    <result column="top_sort_id" property="topSortId" jdbcType="INTEGER" />
+    <result column="second_sort_remark" property="secondSortRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    second_sort_id, second_sort_name, top_sort_id, second_sort_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from second_sort
+    where second_sort_id = #{secondSortId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from second_sort
+    where second_sort_id = #{secondSortId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zpark.goods.domain.SecondSort" >
+    insert into second_sort (second_sort_id, second_sort_name, top_sort_id, 
+      second_sort_remark)
+    values (#{secondSortId,jdbcType=INTEGER}, #{secondSortName,jdbcType=VARCHAR}, #{topSortId,jdbcType=INTEGER}, 
+      #{secondSortRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zpark.goods.domain.SecondSort" >
+    insert into second_sort
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="secondSortId != null" >
+        second_sort_id,
+      </if>
+      <if test="secondSortName != null" >
+        second_sort_name,
+      </if>
+      <if test="topSortId != null" >
+        top_sort_id,
+      </if>
+      <if test="secondSortRemark != null" >
+        second_sort_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="secondSortId != null" >
+        #{secondSortId,jdbcType=INTEGER},
+      </if>
+      <if test="secondSortName != null" >
+        #{secondSortName,jdbcType=VARCHAR},
+      </if>
+      <if test="topSortId != null" >
+        #{topSortId,jdbcType=INTEGER},
+      </if>
+      <if test="secondSortRemark != null" >
+        #{secondSortRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zpark.goods.domain.SecondSort" >
+    update second_sort
+    <set >
+      <if test="secondSortName != null" >
+        second_sort_name = #{secondSortName,jdbcType=VARCHAR},
+      </if>
+      <if test="topSortId != null" >
+        top_sort_id = #{topSortId,jdbcType=INTEGER},
+      </if>
+      <if test="secondSortRemark != null" >
+        second_sort_remark = #{secondSortRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where second_sort_id = #{secondSortId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zpark.goods.domain.SecondSort" >
+    update second_sort
+    set second_sort_name = #{secondSortName,jdbcType=VARCHAR},
+      top_sort_id = #{topSortId,jdbcType=INTEGER},
+      second_sort_remark = #{secondSortRemark,jdbcType=VARCHAR}
+    where second_sort_id = #{secondSortId,jdbcType=INTEGER}
+  </update>
+</mapper>

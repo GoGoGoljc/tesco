@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkdj.orderitem.mapper.OrderItemMapper">
+    <insert id="insert" parameterType="com.zkdj.orderitem.domain.OrderItem">
+     insert  into order_item(order_number,goods_id,goods_name,transaction_price,transaction_num,order_item_subtotal,goods_image,order_state) values (#{orderNumber},#{goodsId},#{goodsName},#{transactionPrice},#{transactionNum},transaction_price*transaction_num,#{goodsImage},#{orderState})
+
+    </insert>
+    <update id="update" parameterType="com.zkdj.orderitem.domain.OrderItem">
+update  order_item set
+order_number=#{orderNumber},
+goods_id=#{goodsId},
+goods_name=#{goodsName},
+transaction_price=#{transactionPrice},
+transaction_num=#{transactionNum},
+order_item_subtotal=transaction_price*transaction_num,
+goods_image=#{goodsImage},
+order_state=#{orderState} where order_item_id=#{orderItemId}
+
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete  from order_item where order_item_id=#{orderItemId}
+    </delete>
+
+    <select id="selectByAll" resultType="com.zkdj.orderitem.domain.OrderItem">
+        select * from  order_item
+    </select>
+    <select id="selectByNum" parameterType="java.lang.String" resultType="com.zkdj.orderitem.domain.OrderItem">
+        select * from  order_item where  order_number=#{orderNumber}
+    </select>
+    <select id="selectByState" parameterType="com.zkdj.orderitem.domain.OrderItem" resultType="com.zkdj.orderitem.domain.OrderItem">
+        select * from order_item where order_number=#{orderNumber}
+    </select>
+    <select id="selectById"  parameterType="java.lang.Integer" resultType="com.zkdj.orderitem.domain.OrderItem">
+         select * from  order_item where order_item_id=#{orderItemId}
+    </select>
+</mapper>

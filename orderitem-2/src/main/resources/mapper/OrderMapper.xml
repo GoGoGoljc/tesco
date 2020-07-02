@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkdj.orderitem.mapper.OrderMapper">
+    <insert id="insert" parameterType="com.zkdj.orderitem.domain.Order">
+            insert  into orders(order_number,order_create_time,order_remark,user_id,order_money,order_update_time) values (#{orderNumber},now(),#{orderRemark},#{userId},
+            #{orderMoney},now()
+            )
+    </insert>
+</mapper>

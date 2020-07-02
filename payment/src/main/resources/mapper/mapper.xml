@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zkdj.payment.mapper.PayMapper">
+
+    <select id="selectByOrderItemId" resultType="com.alipay.api.domain.OrderItem">
+        select * from order_item where order_item_id = #{orderItemId}
+    </select>
+</mapper>
