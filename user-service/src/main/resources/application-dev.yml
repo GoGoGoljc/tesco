@@ -9,8 +9,8 @@ eureka:
 spring:
   mail:
     host: smtp.163.com
-    username: mgr15878571440@163.com
-    password: PZDASTDSYISJFIQC
+    username: xxx@163.com
+    password: 
 
   application:
     name: user-service
